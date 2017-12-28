@@ -4,7 +4,7 @@ PROJECT(leveldb)
 ENABLE_TESTING()
 
 set(VERSION_MAJOR 1)
-set(VERSION_MINOR 15)
+set(VERSION_MINOR 20)
 set(VERRION_PATCH 0)
 set(VERSION_STRING ${VERSION_MAJOR}.${VERSION_MINOR})
 
@@ -91,21 +91,14 @@ set(SNAPPY_HDRS
   dep/snappy/snappy-stubs-public.h
   )
 
-  ###
-  # crc32c-hw
-  ###
-
+###
+# crc32c-hw
+###
 add_definitions(-DCRC32C)
 add_definitions(-DCRC32C_STATIC)
-
 include_directories(dep/crc32c-hw/include dep/crc32c-hw/src)
-set(CRC32C_SRC
-  dep/crc32c-hw/src/crc32c.cpp
-  )
-
-set(CRC32C_HDRS
-  dep/crc32c-hw/include/crc32c.h
-  )
+set(CRC32C_SRC dep/crc32c-hw/src/crc32c.cpp)
+set(CRC32C_HDRS dep/crc32c-hw/include/crc32c.h)
 
 set(SRCS
   db/builder.cc
@@ -256,13 +249,16 @@ leveldb_tests(
   issues/issue178_test.cc
   issues/issue200_test.cc
   db/log_test.cc
+  db/recovery_test.cc
   db/skiplist_test.cc
   table/table_test.cc
   db/version_edit_test.cc
   db/version_set_test.cc
   db/write_batch_test.cc
   db/db_bench.cc
+  db/fault_injection_test.cc
   helpers/memenv/memenv_test.cc
+  util/hash_test.cc
 )
 
 # TODO: memenv_test
